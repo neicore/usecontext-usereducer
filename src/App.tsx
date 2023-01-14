@@ -1,103 +1,38 @@
-import { useReducer, useState } from 'react'
-
-interface StateType {
-  count: number
-}
-
-interface Actions {
-  type: 'initialize' | 'increment' | 'decrement'
-  payload: StateType
-}
-
-const reducer = (state: StateType, action: Actions) => {
-  const { count } = state
-  const { type, payload } = action
-
-  switch (type) {
-    case 'initialize':
-      return {
-        ...state,
-        count: payload?.count,
-      }
-
-    case 'increment':
-      return {
-        ...state,
-        count: count + 1,
-      }
-
-    case 'decrement':
-      return {
-        ...state,
-        count: count - 1,
-      }
-
-    default:
-      return state
-  }
-}
-
-const initialState = {
-  count: 0,
-} satisfies StateType
-
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
+import About from './components/about'
+import Dashboard from './components/dashboard'
+import Home from './components/home'
+import AppState from './context/AppState'
 function App() {
-  const [input, setInput] = useState(0)
-  const [state, dispatch] = useReducer(reducer, initialState)
-
   return (
     <div className="App">
-      <h1>useReducer Example</h1>
+      <h1>useContext Example</h1>
 
-      <div>
-        <label>Start Count</label>
-        <input
-          type="number"
-          onChange={(e) => setInput(parseInt(e.target.value))}
-          value={input}
-        />
-        <br />
-        <button
-          onClick={() =>
-            dispatch({
-              type: 'initialize',
-              payload: {
-                count: input,
-              },
-            })
-          }
-        >
-          Initialize Counter
-        </button>
-      </div>
+      <Router>
+        <div>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/about">About</Link>
+            </li>
+            <li>
+              <Link to="/dashboard">Dashboard</Link>
+            </li>
+          </ul>
 
-      <p>{state.count}</p>
-      <div>
-        <button
-          onClick={() =>
-            dispatch({
-              type: 'increment',
-              payload: {
-                count: state.count,
-              },
-            })
-          }
-        >
-          Increment
-        </button>
-        <button
-          onClick={() =>
-            dispatch({
-              type: 'decrement',
-              payload: {
-                count: state.count,
-              },
-            })
-          }
-        >
-          Decrement
-        </button>
-      </div>
+          <hr />
+
+          <AppState>
+            <Routes>
+              <Route path="/" element={<Home />}></Route>
+              <Route path="/about" element={<About />}></Route>
+              <Route path="/dashboard" element={<Dashboard />}></Route>
+            </Routes>
+          </AppState>
+        </div>
+      </Router>
     </div>
   )
 }
