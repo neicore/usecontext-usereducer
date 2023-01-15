@@ -1,38 +1,16 @@
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
-import About from './components/about'
-import Dashboard from './components/dashboard'
-import Home from './components/home'
-import AppState from './context/AppState'
+import TodoInput from './components/TodoInput'
+import TodoList from './components/TodoList'
+import TodoState from './context/TodoState'
+
 function App() {
   return (
-    <div className="App">
-      <h1>useContext Example</h1>
-
-      <Router>
-        <div>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/about">About</Link>
-            </li>
-            <li>
-              <Link to="/dashboard">Dashboard</Link>
-            </li>
-          </ul>
-
-          <hr />
-
-          <AppState>
-            <Routes>
-              <Route path="/" element={<Home />}></Route>
-              <Route path="/about" element={<About />}></Route>
-              <Route path="/dashboard" element={<Dashboard />}></Route>
-            </Routes>
-          </AppState>
-        </div>
-      </Router>
+    <div className="App p-3 sm:p-0 sm:py-3 w-screen h-screen flex items-center justify-center bg-slate-900 text-slate-200">
+      <div className="flex flex-col items-center w-full sm:w-3/5 h-full bg-slate-800 rounded-lg sm:p-5 p-2 gap-2 sm:gap-5">
+        <TodoState>
+          <TodoInput />
+          <TodoList />
+        </TodoState>
+      </div>
     </div>
   )
 }
