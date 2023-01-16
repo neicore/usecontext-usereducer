@@ -37,21 +37,6 @@ const TodoItem = ({ id }: Props) => {
           {state[todoIndex].isDone ? 'Not Done' : 'Done'}
         </button>
         <button
-          className="text-sky-400"
-          onClick={() =>
-            dispatch({
-              type: 'EDIT',
-              payload: {
-                id,
-                name: state[todoIndex].name,
-                isDone: state[todoIndex].isDone,
-              },
-            })
-          }
-        >
-          Edit
-        </button>
-        <button
           className="text-rose-400"
           onClick={() =>
             dispatch({
